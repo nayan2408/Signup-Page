@@ -5,49 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flat Design Authenticator</title>
     <style>
-        /* Flat Design Reset & Base */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: Arial, sans-serif;
         }
 
         body {
-            background-color: #2c3e50; /* Flat Dark Blue Background */
+            background-color: #2c3e50;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            padding: 20px;
         }
 
-        /* Flat Container - Strict, sharp layout */
-        .auth-box {
+        .auth-card {
             background-color: #ffffff;
             width: 100%;
-            max-width: 420px;
-            padding: 40px 30px;
-            border: 5px solid #34495e; /* Thick solid flat border */
+            max-width: 400px;
+            padding: 35px 25px;
+            border: 4px solid #34495e;
         }
 
-        .brand-title {
+        .brand-header {
             text-align: center;
-            font-size: 26px;
-            font-weight: 700;
+            font-size: 24px;
+            font-weight: 800;
             color: #2c3e50;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        /* Navigation block instead of round buttons */
-        .tab-menu {
+        .tab-navigation {
             display: flex;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             border: 3px solid #bdc3c7;
         }
 
-        .tab-btn {
+        .tab-toggle {
             flex: 1;
             padding: 12px;
             background-color: #ecf0f1;
@@ -59,36 +57,35 @@
             text-transform: uppercase;
         }
 
-        .tab-btn.active {
-            background-color: #3498db; /* Bright Flat Blue highlight */
+        .tab-toggle.active {
+            background-color: #3498db;
             color: #ffffff;
         }
 
-        .form-section {
+        .form-panel {
             display: none;
         }
 
-        .form-section.active {
+        .form-panel.visible {
             display: block;
         }
 
-        /* Flat Input Controls */
-        .input-block {
-            margin-bottom: 22px;
+        .form-group {
+            margin-bottom: 20px;
         }
 
-        .input-block label {
+        .form-group label {
             display: block;
-            margin-bottom: 8px;
-            font-size: 13px;
+            margin-bottom: 6px;
+            font-size: 12px;
             font-weight: bold;
             color: #34495e;
             text-transform: uppercase;
         }
 
-        .input-block input {
+        .form-group input {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             border: 3px solid #bdc3c7;
             background-color: #fafafa;
             font-size: 15px;
@@ -96,471 +93,118 @@
             outline: none;
         }
 
-        .input-block input:focus {
+        .form-group input:focus {
             border-color: #3498db;
             background-color: #ffffff;
         }
 
-        /* Crisp Solid Colors for Buttons */
-        .action-btn {
+        .submit-btn {
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             border: none;
             color: #ffffff;
             font-size: 15px;
             font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 1px;
             cursor: pointer;
-            transition: background-color 0.1s;
         }
 
-        .login-theme { background-color: #2ecc71; } /* Emerald */
-        .login-theme:hover { background-color: #27ae60; }
+        .login-btn-style { background-color: #2ecc71; }
+        .login-btn-style:hover { background-color: #27ae60; }
 
-        .signup-theme { background-color: #e67e22; } /* Carrot */
-        .signup-theme:hover { background-color: #d35400; }
+        .signup-btn-style { background-color: #e67e22; }
+        .signup-btn-style:hover { background-color: #d35400; }
 
-        /* Notification Panel */
-        .status-alert {
+        .notification-banner {
             margin-bottom: 20px;
             padding: 12px;
             font-size: 14px;
             font-weight: bold;
             text-align: center;
             display: none;
-            border: 3px solid transparent;
-        }
-        .status-alert.success {
-            display: block;
+            border: 3px solid #c3e6cb;
             background-color: #d4edda;
             color: #155724;
-            border-color: #c3e6cb;
         }
     </style>
 </head>
 <body>
 
-    <div class="auth-box">
-        <div class="brand-title">Welcome</div>
+    <div class="auth-card">
+        <div class="brand-header">Welcome</div>
 
-        <!-- Navigation Tabs -->
-        <div class="tab-menu">
-            <button class="tab-btn active" id="loginTab" onclick="toggleForm('login')">Log In</button>
-            <button class="tab-btn" id="signupTab" onclick="toggleForm('signup')">Sign Up</button>
+        <div class="tab-navigation">
+            <button class="tab-toggle active" id="loginTabBtn" onclick="changePanel('login')">Log In</button>
+            <button class="tab-toggle" id="signupTabBtn" onclick="changePanel('signup')">Sign Up</button>
         </div>
 
-        <div id="statusAlert" class="status-alert"></div>
+        <div id="noticeBox" class="notification-banner"></div>
 
-        <!-- Log In Window -->
-        <form id="loginForm" class="form-section active" onsubmit="executeAction(event, 'login')">
-            <div class="input-block">
-                <label for="loginEmail">Email Address</label>
-                <input type="email" id="loginEmail" required placeholder="name@domain.com">
+        <form id="loginFormPanel" class="form-panel visible" onsubmit="triggerDemo(event, 'login')">
+            <div class="form-group">
+                <label for="userEmail">Email Address</label>
+                <input type="email" id="userEmail" required placeholder="name@domain.com">
             </div>
-            <div class="input-block">
-                <label for="loginPass">Password</label>
-                <input type="password" id="loginPass" required placeholder="••••••••">
+            <div class="form-group">
+                <label for="userPassword">Password</label>
+                <input type="password" id="userPassword" required placeholder="••••••••">
             </div>
-            <button type="submit" class="action-btn login-theme">Access Account</button>
+            <button type="submit" class="submit-btn login-btn-style">Access Account</button>
         </form>
 
-        <!-- Sign Up Window -->
-        <form id="signupForm" class="form-section" onsubmit="executeAction(event, 'signup')">
-            <div class="input-block">
-                <label for="signupUser">Username</label>
-                <input type="text" id="signupUser" required placeholder="alex_mercer">
+        <form id="signupFormPanel" class="form-panel" onsubmit="triggerDemo(event, 'signup')">
+            <div class="form-group">
+                <label for="newName">Username</label>
+                <input type="text" id="newName" required placeholder="username">
             </div>
-            <div class="input-block">
-                <label for="signupEmail">Email Address</label>
-                <input type="email" id="signupEmail" required placeholder="name@domain.com">
+            <div class="form-group">
+                <label for="newEmail">Email Address</label>
+                <input type="email" id="newEmail" required placeholder="name@domain.com">
             </div>
-            <div class="input-block">
-                <label for="signupPass">Password</label>
-                <input type="password" id="signupPass" required minlength="6" placeholder="Min. 6 characters">
+            <div class="form-group">
+                <label for="newPassword">Password</label>
+                <input type="password" id="newPassword" required minlength="6" placeholder="Min. 6 characters">
             </div>
-            <button type="submit" class="action-btn signup-theme">Register Now</button>
+            <button type="submit" class="submit-btn signup-btn-style">Register Now</button>
         </form>
     </div>
 
     <script>
-        // Form toggle logic
-        function toggleForm(target) {
-            const loginForm = document.getElementById('loginForm');
-            const signupForm = document.getElementById('signupForm');
-            const loginTab = document.getElementById('loginTab');
-            const signupTab = document.getElementById('signupTab');
-            const alertBox = document.getElementById('statusAlert');
+        function changePanel(targetPanel) {
+            const loginForm = document.getElementById('loginFormPanel');
+            const signupForm = document.getElementById('signupFormPanel');
+            const loginBtn = document.getElementById('loginTabBtn');
+            const signupBtn = document.getElementById('signupTabBtn');
+            const notice = document.getElementById('noticeBox');
 
-            alertBox.style.display = 'none';
+            notice.style.display = 'none';
 
-            if (target === 'login') {
-                loginForm.classList.add('active');
-                signupForm.classList.remove('active');
-                loginTab.classList.add('active');
-                signupTab.classList.remove('active');
+            if (targetPanel === 'login') {
+                loginForm.classList.add('visible');
+                signupForm.classList.remove('visible');
+                loginBtn.classList.add('active');
+                signupBtn.classList.remove('active');
             } else {
-                loginForm.classList.remove('active');
-                signupForm.classList.add('active');
-                loginTab.classList.remove('active');
-                signupTab.classList.add('active');
+                loginForm.classList.remove('visible');
+                signupForm.classList.add('visible');
+                loginBtn.classList.remove('active');
+                signupBtn.classList.add('active');
             }
         }
 
-        // Live system confirmation simulation
-        function executeAction(event, formType) {
-            event.preventDefault();
-            const alertBox = document.getElementById('statusAlert');
+        function triggerDemo(e, formMode) {
+            e.preventDefault();
+            const notice = document.getElementById('noticeBox');
+            notice.style.display = 'block';
             
-            if (formType === 'login') {
-                const identity = document.getElementById('loginEmail').value;
-                alertBox.className = "status-alert success";
-                alertBox.innerText = `Access Granted. Logged in as: ${identity}`;
+            if (formMode === 'login') {
+                const mail = document.getElementById('userEmail').value;
+                notice.innerText = `Success! Logged in as: ${mail}`;
             } else {
-                const user = document.getElementById('signupUser').value;
-                alertBox.className = "status-alert success";
-                alertBox.innerText = `Success! Account created for user: ${user}`;
+                const user = document.getElementById('newName').value;
+                notice.innerText = `Success! Registered user: ${user}`;
             }
         }
     </script>
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YourBrand | Login</title>
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
-
-    body {
-      min-height: 100vh;
-      display: flex;
-      color: #152849;
-      background: #ffffff;
-    }
-
-    .welcome {
-      width: 50%;
-      min-height: 100vh;
-      background: #eaf3ff;
-      padding: 90px 8%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .welcome h1 {
-      font-size: clamp(36px, 4vw, 52px);
-      margin-bottom: 20px;
-    }
-
-    .welcome p {
-      color: #647795;
-      font-size: 19px;
-      line-height: 1.7;
-      max-width: 380px;
-    }
-
-    .illustration {
-      font-size: 110px;
-      text-align: center;
-      margin-top: 55px;
-      padding: 30px;
-      background: #d5e6ff;
-      border-radius: 18px;
-    }
-
-    .login-section {
-      width: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 40px 24px;
-    }
-
-    .login-box {
-      width: 100%;
-      max-width: 430px;
-    }
-
-    .brand {
-      color: #3478f6;
-      font-size: 25px;
-      font-weight: bold;
-      margin-bottom: 42px;
-    }
-
-    h2 {
-      font-size: 38px;
-      margin-bottom: 12px;
-    }
-
-    .subtitle {
-      color: #647795;
-      line-height: 1.6;
-      margin-bottom: 30px;
-    }
-
-    .field {
-      margin-bottom: 22px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 9px;
-      color: #405778;
-      font-weight: 600;
-    }
-
-    input[type="email"],
-    input[type="password"],
-    input[type="text"] {
-      width: 100%;
-      padding: 16px;
-      border: 1px solid #dbe3ef;
-      border-radius: 8px;
-      outline: none;
-      font-size: 15px;
-    }
-
-    input:focus {
-      border-color: #3478f6;
-      box-shadow: 0 0 0 3px #3478f620;
-    }
-
-    .options {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 27px;
-      font-size: 14px;
-    }
-
-    .remember {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-weight: normal;
-      margin: 0;
-    }
-
-    a {
-      color: #3478f6;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    button {
-      width: 100%;
-      padding: 16px;
-      border: none;
-      border-radius: 8px;
-      background: #3478f6;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    button:hover {
-      background: #2463dc;
-    }
-
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin: 30px 0;
-      color: #8190a8;
-    }
-
-    .divider::before,
-    .divider::after {
-      content: "";
-      height: 1px;
-      background: #dbe3ef;
-      flex: 1;
-    }
-
-    .signup {
-      text-align: center;
-      color: #647795;
-    }
-
-    #message {
-      margin-top: 15px;
-      color: #2463dc;
-      line-height: 1.5;
-      font-size: 14px;
-    }
-
-    @media (max-width: 760px) {
-      body {
-        display: block;
-      }
-
-      .welcome {
-        display: none;
-      }
-
-      .login-section {
-        width: 100%;
-        min-height: 100vh;
-        padding: 32px 22px;
-      }
-
-      .login-box {
-        max-width: 430px;
-      }
-
-      .brand {
-        margin-bottom: 45px;
-      }
-
-      h2 {
-        font-size: 34px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <section class="welcome">
-    <h1>Welcome Back!</h1>
-    <p>Log in to continue your journey and reach your goals.</p>
-    <div class="illustration" aria-hidden="true">💻</div>
-  </section>
-
-  <section class="login-section">
-    <div class="login-box">
-      <div class="brand">✦ YourBrand</div>
-
-      <h2 id="heading">Login</h2>
-      <p class="subtitle" id="subtitle">
-        Enter your email and password to access your account.
-      </p>
-
-      <form id="loginForm">
-        <div class="field">
-          <label for="email">Email Address</label>
-          <input
-            type="email"
-            id="email"
-            placeholder="you@example.com"
-            autocomplete="email"
-            required
-          >
-        </div>
-
-        <div class="field">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Enter your password"
-            minlength="6"
-            autocomplete="current-password"
-            required
-          >
-        </div>
-
-        <div class="options">
-          <label class="remember">
-            <input type="checkbox" id="remember">
-            Remember me
-          </label>
-          <a href="#" id="forgot">Forgot password?</a>
-        </div>
-
-        <button type="submit" id="submitBtn">Log In</button>
-        <p id="message" role="status"></p>
-      </form>
-
-      <div class="divider">OR</div>
-
-      <p class="signup">
-        <span id="signupText">Don't have an account?</span>
-        <a href="#" id="signupLink">Sign up</a>
-      </p>
-    </div>
-  </section>
-
-  <script>
-    const form = document.getElementById("loginForm");
-    const heading = document.getElementById("heading");
-    const subtitle = document.getElementById("subtitle");
-    const submitBtn = document.getElementById("submitBtn");
-    const signupText = document.getElementById("signupText");
-    const signupLink = document.getElementById("signupLink");
-    const message = document.getElementById("message");
-    const password = document.getElementById("password");
-
-    let signupMode = false;
-
-    // Toggle password visibility by double-clicking the field.
-    password.addEventListener("dblclick", () => {
-      password.type =
-        password.type === "password" ? "text" : "password";
-    });
-
-    // Switch between login and signup screens.
-    signupLink.addEventListener("click", (event) => {
-      event.preventDefault();
-      signupMode = !signupMode;
-
-      heading.textContent = signupMode ? "Create Account" : "Login";
-      submitBtn.textContent = signupMode ? "Sign Up" : "Log In";
-      signupText.textContent = signupMode
-        ? "Already have an account?"
-        : "Don't have an account?";
-      signupLink.textContent = signupMode ? "Log in" : "Sign up";
-      subtitle.textContent = signupMode
-        ? "Create an account to get started."
-        : "Enter your email and password to access your account.";
-
-      password.autocomplete = signupMode
-        ? "new-password"
-        : "current-password";
-
-      message.textContent = "";
-    });
-
-    // Demo-only password recovery interaction.
-    document.getElementById("forgot").addEventListener("click", (event) => {
-      event.preventDefault();
-      const email = document.getElementById("email").value.trim();
-
-      message.textContent = email
-        ? "Connect a password-reset service to send a real reset email."
-        : "Please enter your email address first.";
-    });
-
-    // Validate the form. A backend is needed for real authentication.
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-
-      if (!form.reportValidity()) return;
-
-      const email = document.getElementById("email").value.trim();
-
-      message.textContent =
-        `${signupMode ? "Sign-up" : "Login"} form validated for ${email}. ` +
-        "Connect a secure authentication service to continue.";
-    });
-  </script>
 </body>
 </html>
