@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise Portal - Right Panel Only</title>
+    <title>Flat Design Auth Portal</title>
     <style>
-        /* Modern Flat Design Reset */
+        /* Flat Design Reset */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: #f4f6fc; /* Color 1: Light Soft Gray */
+            background-color: #2c3e50; /* Solid Flat Dark Slate */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -22,121 +22,120 @@
             padding: 20px;
         }
 
-        /* Right Side Form Canvas Only */
-        .form-canvas {
+        /* Container with Crisp Solid Border */
+        .auth-container {
+            background-color: #ffffff;
             width: 100%;
-            max-width: 440px;
-            background-color: #ffffff; /* Color 2: Crisp White */
-            padding: 50px 40px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            max-width: 420px;
+            padding: 40px 30px;
+            border: 4px solid #34495e;
         }
 
-        .form-header-title {
-            font-size: 22px;
-            font-weight: 800;
-            color: #1e293b;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 24px;
+        .auth-title {
             text-align: center;
-        }
-
-        /* Sub-Segmented Navigation Control Tabs */
-        .control-tabs {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 28px;
-            justify-content: center;
-        }
-
-        .tab-trigger {
-            padding: 6px 16px;
-            background-color: #f1f5f9;
-            border: 1px solid #e2e8f0;
-            font-size: 13px;
+            font-size: 24px;
             font-weight: 700;
-            color: #64748b;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Flat Tab Menu */
+        .tab-menu {
+            display: flex;
+            margin-bottom: 25px;
+            border: 2px solid #bdc3c7;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background-color: #ecf0f1;
+            border: none;
+            font-size: 14px;
+            font-weight: 700;
+            color: #7f8c8d;
             cursor: pointer;
+            text-transform: uppercase;
+            transition: background-color 0.1s;
         }
 
-        .tab-trigger.active {
-            background-color: #3b49df; /* Color 3: Royal Slate Blue */
+        .tab-btn.active {
+            background-color: #3498db; /* Flat Blue */
             color: #ffffff;
-            border-color: #3b49df;
         }
 
-        .panel-block {
+        /* Form Visibility */
+        .form-panel {
             display: none;
         }
 
-        .panel-block.visible {
+        .form-panel.active {
             display: block;
         }
 
-        /* Input Element Rows with SVGs */
-        .field-row {
+        /* Input Block */
+        .input-group {
             margin-bottom: 20px;
         }
 
-        .field-row label {
+        .input-group label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             font-size: 12px;
             font-weight: 700;
-            color: #64748b;
+            color: #34495e;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .input-wrapper svg {
-            position: absolute;
-            left: 14px;
-            width: 16px;
-            height: 16px;
-            fill: #64748b;
-        }
-
-        .input-wrapper input {
+        .input-group input {
             width: 100%;
-            padding: 12px 12px 12px 42px;
-            border: 1px solid #cbd5e1; /* Color 4: Input Boundary Gray */
-            background-color: #ffffff;
+            padding: 12px 14px;
+            border: 2px solid #bdc3c7;
+            background-color: #fafafa;
             font-size: 14px;
-            color: #1e293b;
+            color: #2c3e50;
             outline: none;
         }
 
-        .input-wrapper input:focus {
-            border-color: #3b49df;
+        .input-group input:focus {
+            border-color: #3498db;
+            background-color: #ffffff;
         }
 
-        /* Action Controls */
-        .auth-submit-btn {
+        /* Action Buttons */
+        .submit-btn {
             width: 100%;
-            padding: 12px;
-            background-color: #3b49df;
+            padding: 14px;
             border: none;
             color: #ffffff;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 700;
             text-transform: uppercase;
+            letter-spacing: 1px;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 5px;
         }
 
-        .auth-submit-btn:hover {
-            background-color: #2633c2;
+        .login-btn {
+            background-color: #2ecc71; /* Flat Emerald Green */
         }
 
+        .login-btn:hover {
+            background-color: #27ae60;
+        }
+
+        .signup-btn {
+            background-color: #e67e22; /* Flat Carrot Orange */
+        }
+
+        .signup-btn:hover {
+            background-color: #d35400;
+        }
+
+        /* Alert Box */
         .status-message {
             margin-bottom: 20px;
             padding: 10px;
@@ -144,112 +143,94 @@
             font-weight: 700;
             text-align: center;
             display: none;
-            background-color: #e0e7ff;
-            border: 1px solid #a5b4fc;
-            color: #3b49df;
+            border: 2px solid #2ecc71;
+            background-color: #e8f8f5;
+            color: #27ae60;
         }
     </style>
 </head>
 <body>
 
-    <!-- RIGHT SIDE: Input Form Canvas -->
-    <div class="form-canvas">
-        <h1 class="form-header-title">Form Login</h1>
+    <div class="auth-container">
+        <h2 class="auth-title">User Access</h2>
 
-        <!-- Segment Control Tabs -->
-        <div class="control-tabs">
-            <button class="tab-trigger active" id="loginTab" onclick="toggleInterface('login')">Login</button>
-            <button class="tab-trigger" id="signupTab" onclick="toggleInterface('signup')">Register</button>
+        <!-- Navigation Tabs -->
+        <div class="tab-menu">
+            <button type="button" class="tab-btn active" id="loginTab" onclick="switchMode('login')">Log In</button>
+            <button type="button" class="tab-btn" id="signupTab" onclick="switchMode('signup')">Sign Up</button>
         </div>
 
+        <!-- Notification Box -->
         <div id="statusMessage" class="status-message"></div>
 
-        <!-- Login View Block -->
-        <form id="loginBlock" class="panel-block visible" onsubmit="handleAuthAction(event, 'login')">
-            <div class="field-row">
-                <label for="loginUser">User Name</label>
-                <div class="input-wrapper">
-                    <!-- User Silhouette SVG -->
-                    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                    <input type="text" id="loginUser" required placeholder="Username">
-                </div>
+        <!-- Login Form -->
+        <form id="loginForm" class="form-panel active" onsubmit="handleSubmit(event, 'login')">
+            <div class="input-group">
+                <label for="loginEmail">Email Address</label>
+                <input type="email" id="loginEmail" placeholder="user@domain.com" required>
             </div>
-            <div class="field-row">
-                <label for="loginPass">Password</label>
-                <div class="input-wrapper">
-                    <!-- Shield Lock SVG -->
-                    <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-                    <input type="password" id="loginPass" required placeholder="Password">
-                </div>
+            <div class="input-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" placeholder="••••••••" required>
             </div>
-            <button type="submit" class="auth-submit-btn">Login</button>
+            <button type="submit" class="submit-btn login-btn">Log In</button>
         </form>
 
-        <!-- Register View Block -->
-        <form id="signupBlock" class="panel-block" onsubmit="handleAuthAction(event, 'signup')">
-            <div class="field-row">
-                <label for="regUser">User Name</label>
-                <div class="input-wrapper">
-                    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                    <input type="text" id="regUser" required placeholder="Create Username">
-                </div>
+        <!-- Sign Up Form -->
+        <form id="signupForm" class="form-panel" onsubmit="handleSubmit(event, 'signup')">
+            <div class="input-group">
+                <label for="signupUsername">Username</label>
+                <input type="text" id="signupUsername" placeholder="john_doe" required>
             </div>
-            <div class="field-row">
-                <label for="regEmail">Email Address</label>
-                <div class="input-wrapper">
-                    <!-- Envelope Mail SVG -->
-                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                    <input type="email" id="regEmail" required placeholder="Email Address">
-                </div>
+            <div class="input-group">
+                <label for="signupEmail">Email Address</label>
+                <input type="email" id="signupEmail" placeholder="user@domain.com" required>
             </div>
-            <div class="field-row">
-                <label for="regPass">Password</label>
-                <div class="input-wrapper">
-                    <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-                    <input type="password" id="regPass" required minlength="6" placeholder="Password">
-                </div>
+            <div class="input-group">
+                <label for="signupPassword">Password</label>
+                <input type="password" id="signupPassword" minlength="6" placeholder="Min 6 characters" required>
             </div>
-            <button type="submit" class="auth-submit-btn">Register</button>
+            <button type="submit" class="submit-btn signup-btn">Create Account</button>
         </form>
-
     </div>
 
     <script>
-        function toggleInterface(targetMode) {
-            const loginBlock = document.getElementById('loginBlock');
-            const signupBlock = document.getElementById('signupBlock');
+        function switchMode(mode) {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
             const loginTab = document.getElementById('loginTab');
             const signupTab = document.getElementById('signupTab');
-            const alertText = document.getElementById('statusMessage');
+            const statusMsg = document.getElementById('statusMessage');
 
-            alertText.style.display = 'none';
+            statusMsg.style.display = 'none';
 
-            if (targetMode === 'login') {
-                loginBlock.classList.add('visible');
-                signupBlock.classList.remove('visible');
+            if (mode === 'login') {
+                loginForm.classList.add('active');
+                signupForm.classList.remove('active');
                 loginTab.classList.add('active');
                 signupTab.classList.remove('active');
             } else {
-                loginBlock.classList.remove('visible');
-                signupBlock.classList.add('visible');
-                loginTab.classList.remove('active');
+                signupForm.classList.add('active');
+                loginForm.classList.remove('active');
                 signupTab.classList.add('active');
+                loginTab.classList.remove('active');
             }
         }
 
-        function handleAuthAction(event, flow) {
+        function handleSubmit(event, type) {
             event.preventDefault();
-            const alertText = document.getElementById('statusMessage');
-            alertText.style.display = 'block';
-            
-            if (flow === 'login') {
-                const user = document.getElementById('loginUser').value;
-                alertText.innerText = `Welcome back! Logged in as: ${user}`;
+            const statusMsg = document.getElementById('statusMessage');
+            statusMsg.style.display = 'block';
+
+            if (type === 'login') {
+                const email = document.getElementById('loginEmail').value;
+                statusMsg.innerText = `Logged in successfully as ${email}`;
             } else {
-                const newUser = document.getElementById('regUser').value;
-                alertText.innerText = `Success! Registered account: ${newUser}`;
+                const username = document.getElementById('signupUsername').value;
+                statusMsg.innerText = `Account created for ${username}`;
             }
         }
     </script>
+
 </body>
 </html>
