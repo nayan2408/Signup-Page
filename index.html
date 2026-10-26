@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashdark X - Authenticate</title>
+    <title>Dashdark X - Enterprise Platform</title>
     <style>
-        /* Cyber-Dark Reset */
+        /* Fullscreen Layout Reset */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -14,147 +14,192 @@
         }
 
         body {
-            background-color: #0b0f19; /* Color 1: Deep Dark Void */
+            background-color: #0b0f19;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* 50/50 Full Width Split Container */
+        .split-screen {
+            display: flex;
+            width: 100vw;
+            min-height: 100vh;
+        }
+
+        /* Left Side: Massive Branding & Analytics Welcome Panel */
+        .branding-side {
+            flex: 1;
+            background: linear-gradient(135deg, #131a2e 0%, #0b0f19 100%);
+            border-right: 1px solid #1e293b;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px;
+        }
+
+        .brand-logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .brand-circle {
+            width: 24px;
+            height: 24px;
+            background-color: #c084fc;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(192, 132, 252, 0.6);
+        }
+
+        .brand-title-text {
+            font-size: 22px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 1px;
+        }
+
+        .hero-title {
+            font-size: 44px;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-title span {
+            color: #c084fc;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: #64748b;
+            line-height: 1.6;
+            max-width: 500px;
+        }
+
+        /* Right Side: Interactive Authentication Panel */
+        .form-side {
+            flex: 1;
+            background-color: #0b0f19;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            padding: 24px;
+            padding: 60px;
         }
 
-        /* Premium Floating Dashboard Panel */
-        .auth-card {
-            background-color: #131a2e; /* Color 2: Cyber Slate */
+        .auth-wrapper {
             width: 100%;
-            max-width: 420px;
-            padding: 48px 36px;
-            border: 1px solid #1e293b;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            max-width: 440px;
         }
 
-        /* Branding Elements from Dashboard */
-        .brand-wrapper {
+        /* Modern Navigation Control System */
+        .tab-bar {
             display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 24px;
-        }
-
-        .brand-icon {
-            width: 16px;
-            height: 16px;
-            background-color: #c084fc;
-            border-radius: 50%;
-        }
-
-        .brand-name {
-            font-size: 16px;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: 0.5px;
-        }
-
-        .header-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 8px;
-        }
-
-        .header-subtitle {
-            font-size: 14px;
-            color: #64748b;
-            margin-bottom: 36px;
-        }
-
-        /* Segmented Controller System */
-        .tab-menu {
-            display: flex;
-            background-color: #0b0f19;
-            padding: 4px;
-            margin-bottom: 32px;
+            background-color: #131a2e;
+            padding: 6px;
+            margin-bottom: 40px;
             border: 1px solid #1e293b;
         }
 
-        .tab-toggle {
+        .tab-item {
             flex: 1;
-            padding: 10px 0;
+            padding: 14px 0;
             background: none;
             border: none;
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 15px;
+            font-weight: 700;
             color: #64748b;
             cursor: pointer;
+            text-align: center;
             transition: all 0.2s ease;
         }
 
-        .tab-toggle.active {
-            background-color: #131a2e;
-            color: #c084fc; /* Color 3: Neon Purple */
+        .tab-item.active {
+            background-color: #0b0f19;
+            color: #c084fc;
             border: 1px solid #1e293b;
         }
 
-        /* Form Visibility Management */
-        .form-view {
+        .panel-view {
             display: none;
         }
 
-        .form-view.visible {
+        .panel-view.active {
             display: block;
         }
 
-        /* Form Controls */
-        .field-group {
-            margin-bottom: 24px;
+        /* Form Inputs with SVG Icon Wrappers */
+        .input-row {
+            margin-bottom: 28px;
         }
 
-        .field-group label {
+        .input-row label {
             display: block;
-            margin-bottom: 8px;
-            font-size: 13px;
+            margin-bottom: 10px;
+            font-size: 14px;
             font-weight: 600;
             color: #94a3b8;
         }
 
-        .field-group input {
+        .input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-container svg {
+            position: absolute;
+            left: 16px;
+            width: 20px;
+            height: 20px;
+            fill: #64748b;
+            transition: fill 0.2s ease;
+        }
+
+        .input-container input {
             width: 100%;
-            padding: 14px 16px;
+            padding: 16px 16px 16px 52px;
             border: 1px solid #1e293b;
-            background-color: #0b0f19;
+            background-color: #131a2e;
             font-size: 15px;
             color: #ffffff;
             outline: none;
             transition: all 0.2s ease;
         }
 
-        .field-group input:focus {
+        .input-container input:focus {
             border-color: #c084fc;
         }
 
-        /* Glow Cyber Action Controls */
-        .action-button {
+        .input-container input:focus + svg {
+            fill: #c084fc;
+        }
+
+        /* Expansive Action Buttons */
+        .submit-action {
             width: 100%;
-            padding: 14px;
+            padding: 16px;
             border: none;
-            background-color: #d946ef; /* Color 4: Cyber Pink */
+            background-color: #d946ef;
             color: #ffffff;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 700;
             cursor: pointer;
             letter-spacing: 0.5px;
             transition: all 0.2s ease;
-            margin-top: 8px;
+            margin-top: 10px;
         }
 
-        .action-button:hover {
+        .submit-action:hover {
             background-color: #c026d3;
-            box-shadow: 0 0 15px rgba(217, 70, 239, 0.4);
+            box-shadow: 0 0 20px rgba(217, 70, 239, 0.4);
         }
 
-        /* Alert Window */
-        .notice-container {
+        /* Notification Banner */
+        .notice-banner {
             margin-bottom: 24px;
-            padding: 12px;
+            padding: 14px;
             font-size: 14px;
             font-weight: 600;
             text-align: center;
@@ -163,95 +208,81 @@
             border: 1px solid #c084fc;
             color: #c084fc;
         }
+
+        /* Responsive collapse for small window viewing widths */
+        @media (max-width: 960px) {
+            .split-screen { flex-direction: column; }
+            .branding-side { padding: 40px; }
+            .form-side { padding: 40px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="auth-card">
-        <!-- Logo Branding -->
-        <div class="brand-wrapper">
-            <div class="brand-icon"></div>
-            <div class="brand-name">Dashdark X</div>
+    <div class="split-screen">
+        
+        <!-- Left Banner Grid Section -->
+        <div class="branding-side">
+            <div class="brand-logo-wrapper">
+                <div class="brand-circle"></div>
+                <div class="brand-title-text">Dashdark X</div>
+            </div>
+            <h1 class="hero-title">Measure your advertising <span>ROI</span> from one report.</h1>
+            <p class="hero-subtitle">Access your centralized data workspace system. Monitor live website channels, clean tracking interfaces, and configure user goal pipelines seamlessly.</p>
         </div>
 
-        <div class="header-title">Welcome back, John</div>
-        <div class="header-subtitle">Measure your advertising ROI from one report website traffic.</div>
+        <!-- Right System Input Section -->
+        <div class="form-side">
+            <div class="auth-wrapper">
+                
+                <!-- Modern Segmented Tabs -->
+                <div class="tab-bar">
+                    <button class="tab-item active" id="loginTab" onclick="changeViewState('login')">Log In</button>
+                    <button class="tab-item" id="signupTab" onclick="changeViewState('signup')">Sign Up</button>
+                </div>
 
-        <!-- Navigation Tabs -->
-        <div class="tab-menu">
-            <button class="tab-toggle active" id="loginBtn" onclick="switchView('login')">Log In</button>
-            <button class="tab-toggle" id="signupBtn" onclick="switchView('signup')">Sign Up</button>
-        </div>
+                <div id="noticeBanner" class="notice-banner"></div>
 
-        <div id="noticeContainer" class="notice-container"></div>
+                <!-- Log In Form Panel -->
+                <form id="loginFormPanel" class="panel-view active" onsubmit="executeSubmit(event, 'login')">
+                    <div class="input-row">
+                        <label for="loginEmail">Email Address</label>
+                        <div class="input-container">
+                            <!-- Envelope Mail Icon -->
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            <input type="email" id="loginEmail" required placeholder="john.carter@template.com">
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <label for="loginPassword">Password</label>
+                        <div class="input-container">
+                            <!-- Lock Icon -->
+                            <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                            <input type="password" id="loginPassword" required placeholder="••••••••">
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-action">Access Dashboard</button>
+                </form>
 
-        <!-- Login Form Panel -->
-        <form id="loginForm" class="form-view visible" onsubmit="handleFormSubmit(event, 'login')">
-            <div class="field-group">
-                <label for="loginEmail">Email address</label>
-                <input type="email" id="loginEmail" required placeholder="john.carter@template.com">
-            </div>
-            <div class="field-group">
-                <label for="loginPassword">Password</label>
-                <input type="password" id="loginPassword" required placeholder="••••••••">
-            </div>
-            <button type="submit" class="action-button">Create report</button>
-        </form>
-
-        <!-- Sign Up Form Panel -->
-        <form id="signupForm" class="form-view" onsubmit="handleFormSubmit(event, 'signup')">
-            <div class="field-group">
-                <label for="signupUser">Username</label>
-                <input type="text" id="signupUser" required placeholder="john_carter">
-            </div>
-            <div class="field-group">
-                <label for="signupEmail">Email address</label>
-                <input type="email" id="signupEmail" required placeholder="john.carter@template.com">
-            </div>
-            <div class="field-group">
-                <label for="signupPassword">Password</label>
-                <input type="password" id="signupPassword" required minlength="6" placeholder="Minimum 6 characters">
-            </div>
-            <button type="submit" class="action-button">Initialize Account</button>
-        </form>
-    </div>
-
-    <script>
-        function switchView(target) {
-            const loginForm = document.getElementById('loginForm');
-            const signupForm = document.getElementById('signupForm');
-            const loginBtn = document.getElementById('loginBtn');
-            const signupBtn = document.getElementById('signupBtn');
-            const notice = document.getElementById('noticeContainer');
-
-            notice.style.display = 'none';
-
-            if (target === 'login') {
-                loginForm.classList.add('visible');
-                signupForm.classList.remove('visible');
-                loginBtn.classList.add('active');
-                signupBtn.classList.remove('active');
-            } else {
-                loginForm.classList.remove('visible');
-                signupForm.classList.add('visible');
-                loginBtn.classList.remove('active');
-                signupBtn.classList.add('active');
-            }
-        }
-
-        function handleFormSubmit(e, type) {
-            e.preventDefault();
-            const notice = document.getElementById('noticeContainer');
-            notice.style.display = 'block';
-            
-            if (type === 'login') {
-                const email = document.getElementById('loginEmail').value;
-                notice.innerText = `Dashboard loaded for session: ${email}`;
-            } else {
-                const user = document.getElementById('signupUser').value;
-                notice.innerText = `Success! Account created for ${user}`;
-            }
-        }
-    </script>
-</body>
-</html>
+                <!-- Sign Up Form Panel -->
+                <form id="signupFormPanel" class="panel-view" onsubmit="executeSubmit(event, 'signup')">
+                    <div class="input-row">
+                        <label for="signupUser">Account Username</label>
+                        <div class="input-container">
+                            <!-- User Silhouette Icon -->
+                            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                            <input type="text" id="signupUser" required placeholder="john_carter">
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <label for="signupEmail">Email Address</label>
+                        <div class="input-container">
+                            <!-- Envelope Mail Icon -->
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            <input type="email" id="signupEmail" required placeholder="john.carter@template.com">
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <label for="signupPassword">Security Password</label>
+                        <div class="input-container">
+                            <!-- Lock Icon -->
