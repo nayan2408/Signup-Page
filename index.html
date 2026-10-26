@@ -3,203 +3,270 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashdark X - Enterprise Platform</title>
+    <title>Dashdark X - Complete Full Page Enterprise Platform</title>
     <style>
-        /* Fullscreen Layout Reset */
+        /* Force screen containment - zero margins, no blank gaps, no double scrollbars */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
-        body {
+        html, body {
+            width: 100%;
+            height: 100vh;
             background-color: #0b0f19;
-            min-height: 100vh;
-            display: flex;
+            color: #ffffff;
+            overflow: hidden; 
         }
 
-        /* 50/50 Full Width Split Container */
-        .split-screen {
-            display: flex;
+        /* 3-Column Full Page Grid System spanning the absolute entire window */
+        .full-page-grid {
+            display: grid;
+            grid-template-columns: 260px 1fr 400px;
             width: 100vw;
-            min-height: 100vh;
+            height: 100vh;
         }
 
-        /* Left Side: Massive Branding & Analytics Welcome Panel */
-        .branding-side {
-            flex: 1;
-            background: linear-gradient(135deg, #131a2e 0%, #0b0f19 100%);
+        /* Common tile system styling to mimic dashboard data components */
+        .grid-tile {
+            background-color: #131a2e;
+            border: 1px solid #1e293b;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* COL 1: Structural Left Sidebar Panel */
+        .sidebar-panel {
+            grid-column: 1;
             border-right: 1px solid #1e293b;
+            justify-content: flex-start;
+            gap: 8px;
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #1e293b;
+            margin-bottom: 16px;
+        }
+
+        .brand-dot {
+            width: 14px;
+            height: 14px;
+            background-color: #c084fc;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #c084fc;
+        }
+
+        .brand-txt {
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-item {
+            padding: 12px 16px;
+            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-item.active {
+            background-color: rgba(192, 132, 252, 0.1);
+            color: #c084fc;
+            border-left: 4px solid #c084fc;
+        }
+
+        /* COL 2: Central Analytics Monitor Space */
+        .analytics-space {
+            grid-column: 2;
+            display: grid;
+            grid-template-rows: 80px 1fr 1fr;
+            height: 100%;
+            background-color: #0b0f19;
+        }
+
+        .top-navbar {
+            grid-row: 1;
+            background-color: #131a2e;
+            border-bottom: 1px solid #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+        }
+
+        .navbar-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        /* Sub-grid filling the top section of analytics window space */
+        .metrics-subgrid {
+            grid-row: 2;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .metric-card {
+            border-right: 1px solid #1e293b;
+            padding: 32px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 80px;
         }
 
-        .brand-logo-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 40px;
+        .metric-card:last-child {
+            border-right: none;
         }
 
-        .brand-circle {
-            width: 24px;
-            height: 24px;
-            background-color: #c084fc;
-            border-radius: 50%;
-            box-shadow: 0 0 15px rgba(192, 132, 252, 0.6);
-        }
-
-        .brand-title-text {
-            font-size: 22px;
-            font-weight: 800;
-            color: #ffffff;
-            letter-spacing: 1px;
-        }
-
-        .hero-title {
-            font-size: 44px;
-            font-weight: 800;
-            color: #ffffff;
-            line-height: 1.2;
-            margin-bottom: 20px;
-        }
-
-        .hero-title span {
-            color: #c084fc;
-        }
-
-        .hero-subtitle {
-            font-size: 16px;
+        .metric-label {
+            font-size: 13px;
             color: #64748b;
-            line-height: 1.6;
-            max-width: 500px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 6px;
         }
 
-        /* Right Side: Interactive Authentication Panel */
-        .form-side {
-            flex: 1;
-            background-color: #0b0f19;
+        .metric-val {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .metric-val.green { color: #2ecc71; }
+        .metric-val.red { color: #e74c3c; }
+
+        /* Chart Simulation Visualization box filling the bottom row space */
+        .visualization-box {
+            grid-row: 3;
+            padding: 32px;
             display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .mock-graph-container {
+            flex: 1;
+            border: 2px dashed #1e293b;
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            padding: 16px;
+        }
+
+        .mock-bar {
+            flex: 1;
+            background-color: rgba(192, 132, 252, 0.2);
+            border-top: 3px solid #c084fc;
+            transition: height 0.5s;
+        }
+
+        /* COL 3: Structural Right Access & Authentication Panel */
+        .auth-panel {
+            grid-column: 3;
+            border-left: 1px solid #1e293b;
             justify-content: center;
             align-items: center;
-            padding: 60px;
+            padding: 48px;
         }
 
         .auth-wrapper {
             width: 100%;
-            max-width: 440px;
         }
 
-        /* Modern Navigation Control System */
-        .tab-bar {
+        .tab-menu {
             display: flex;
-            background-color: #131a2e;
-            padding: 6px;
-            margin-bottom: 40px;
+            background-color: #0b0f19;
+            padding: 4px;
+            margin-bottom: 32px;
             border: 1px solid #1e293b;
         }
 
-        .tab-item {
+        .tab-btn {
             flex: 1;
-            padding: 14px 0;
+            padding: 12px 0;
             background: none;
             border: none;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
             color: #64748b;
             cursor: pointer;
-            text-align: center;
-            transition: all 0.2s ease;
         }
 
-        .tab-item.active {
-            background-color: #0b0f19;
+        .tab-btn.active {
+            background-color: #131a2e;
             color: #c084fc;
             border: 1px solid #1e293b;
         }
 
-        .panel-view {
+        .form-view {
             display: none;
         }
 
-        .panel-view.active {
+        .form-view.visible {
             display: block;
         }
 
-        /* Form Inputs with SVG Icon Wrappers */
-        .input-row {
-            margin-bottom: 28px;
+        .input-block {
+            margin-bottom: 24px;
         }
 
-        .input-row label {
+        .input-block label {
             display: block;
-            margin-bottom: 10px;
-            font-size: 14px;
+            margin-bottom: 8px;
+            font-size: 13px;
             font-weight: 600;
             color: #94a3b8;
         }
 
-        .input-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .input-container svg {
-            position: absolute;
-            left: 16px;
-            width: 20px;
-            height: 20px;
-            fill: #64748b;
-            transition: fill 0.2s ease;
-        }
-
-        .input-container input {
+        .input-block input {
             width: 100%;
-            padding: 16px 16px 16px 52px;
+            padding: 14px;
             border: 1px solid #1e293b;
-            background-color: #131a2e;
+            background-color: #0b0f19;
             font-size: 15px;
             color: #ffffff;
             outline: none;
-            transition: all 0.2s ease;
         }
 
-        .input-container input:focus {
+        .input-block input:focus {
             border-color: #c084fc;
         }
 
-        .input-container input:focus + svg {
-            fill: #c084fc;
-        }
-
-        /* Expansive Action Buttons */
-        .submit-action {
+        .action-submit {
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             border: none;
             background-color: #d946ef;
             color: #ffffff;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             cursor: pointer;
             letter-spacing: 0.5px;
-            transition: all 0.2s ease;
-            margin-top: 10px;
         }
 
-        .submit-action:hover {
+        .action-submit:hover {
             background-color: #c026d3;
-            box-shadow: 0 0 20px rgba(217, 70, 239, 0.4);
+            box-shadow: 0 0 15px rgba(217, 70, 239, 0.4);
         }
 
-        /* Notification Banner */
-        .notice-banner {
+        .sys-alert {
             margin-bottom: 24px;
-            padding: 14px;
+            padding: 12px;
             font-size: 14px;
             font-weight: 600;
             text-align: center;
@@ -208,81 +275,66 @@
             border: 1px solid #c084fc;
             color: #c084fc;
         }
-
-        /* Responsive collapse for small window viewing widths */
-        @media (max-width: 960px) {
-            .split-screen { flex-direction: column; }
-            .branding-side { padding: 40px; }
-            .form-side { padding: 40px; }
-        }
     </style>
 </head>
 <body>
 
-    <div class="split-screen">
+    <!-- Main Fullscreen Screen Layout Grid Frame -->
+    <div class="full-page-grid">
         
-        <!-- Left Banner Grid Section -->
-        <div class="branding-side">
-            <div class="brand-logo-wrapper">
-                <div class="brand-circle"></div>
-                <div class="brand-title-text">Dashdark X</div>
+        <!-- COL 1: Sidebar System Navigation Panel -->
+        <div class="grid-tile sidebar-panel">
+            <div class="brand-container">
+                <div class="brand-dot"></div>
+                <div class="brand-txt">Dashdark X</div>
             </div>
-            <h1 class="hero-title">Measure your advertising <span>ROI</span> from one report.</h1>
-            <p class="hero-subtitle">Access your centralized data workspace system. Monitor live website channels, clean tracking interfaces, and configure user goal pipelines seamlessly.</p>
+            <div class="nav-item active">Dashboard</div>
+            <div class="nav-item">Reports Overview</div>
+            <div class="nav-item">Product Metrics</div>
+            <div class="nav-item">Task Control</div>
+            <div class="nav-item">Features Config</div>
+            <div class="nav-item">User Management</div>
+            <div class="nav-item">System Pricing</div>
         </div>
 
-        <!-- Right System Input Section -->
-        <div class="form-side">
-            <div class="auth-wrapper">
-                
-                <!-- Modern Segmented Tabs -->
-                <div class="tab-bar">
-                    <button class="tab-item active" id="loginTab" onclick="changeViewState('login')">Log In</button>
-                    <button class="tab-item" id="signupTab" onclick="changeViewState('signup')">Sign Up</button>
+        <!-- COL 2: Analytics & Performance Workspace Data Stream -->
+        <div class="analytics-space">
+            <!-- Central Top Navbar -->
+            <div class="top-navbar">
+                <div class="navbar-title">Welcome back, John</div>
+                <div style="font-size: 14px; color: #64748b;">System Node Active</div>
+            </div>
+
+            <!-- Horizontal Metrics Block (4 Grid Sub-Columns Edge-To-Edge) -->
+            <div class="metrics-subgrid">
+                <div class="metric-card">
+                    <div class="metric-label">Page views</div>
+                    <div class="metric-val green">50.8K</div>
                 </div>
+                <div class="metric-card">
+                    <div class="metric-label">Monthly users</div>
+                    <div class="metric-val red">23.6K</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">New sign ups</div>
+                    <div class="metric-val">756</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Subscriptions</div>
+                    <div class="metric-val">2.3K</div>
+                </div>
+            </div>
 
-                <div id="noticeBanner" class="notice-banner"></div>
-
-                <!-- Log In Form Panel -->
-                <form id="loginFormPanel" class="panel-view active" onsubmit="executeSubmit(event, 'login')">
-                    <div class="input-row">
-                        <label for="loginEmail">Email Address</label>
-                        <div class="input-container">
-                            <!-- Envelope Mail Icon -->
-                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                            <input type="email" id="loginEmail" required placeholder="john.carter@template.com">
-                        </div>
+            <!-- Visualization System Grid Block -->
+            <div class="grid-tile visualization-box">
+                <div class="chart-header">
+                    <div>
+                        <div style="font-size: 14px; color: #64748b; font-weight: 600;">TOTAL REVENUE</div>
+                        <div style="font-size: 24px; font-weight: 700; color: #2ecc71;">$240.8K</div>
                     </div>
-                    <div class="input-row">
-                        <label for="loginPassword">Password</label>
-                        <div class="input-container">
-                            <!-- Lock Icon -->
-                            <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-                            <input type="password" id="loginPassword" required placeholder="••••••••">
-                        </div>
-                    </div>
-                    <button type="submit" class="submit-action">Access Dashboard</button>
-                </form>
-
-                <!-- Sign Up Form Panel -->
-                <form id="signupFormPanel" class="panel-view" onsubmit="executeSubmit(event, 'signup')">
-                    <div class="input-row">
-                        <label for="signupUser">Account Username</label>
-                        <div class="input-container">
-                            <!-- User Silhouette Icon -->
-                            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                            <input type="text" id="signupUser" required placeholder="john_carter">
-                        </div>
-                    </div>
-                    <div class="input-row">
-                        <label for="signupEmail">Email Address</label>
-                        <div class="input-container">
-                            <!-- Envelope Mail Icon -->
-                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                            <input type="email" id="signupEmail" required placeholder="john.carter@template.com">
-                        </div>
-                    </div>
-                    <div class="input-row">
-                        <label for="signupPassword">Security Password</label>
-                        <div class="input-container">
-                            <!-- Lock Icon -->
+                    <div style="font-size: 13px; color: #64748b; align-self: flex-end;">Jan 2026 - Dec 2026</div>
+                </div>
+                <!-- Simulated Chart Bars -->
+                <div class="mock-graph-container">
+                    <div class="mock-bar" style="height: 30%;"></div>
+                    <div class="mock-bar" style="height: 45%;"></div>
