@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flat Design Auth Portal</title>
+    <title>Sentinel - Cybersecurity Workspace</title>
     <style>
-        /* Flat Design Reset */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            background-color: #2c3e50; /* Solid Flat Dark Slate */
+            background-color: #f3f4f6;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -22,215 +21,340 @@
             padding: 20px;
         }
 
-        /* Container with Crisp Solid Border */
-        .auth-container {
+        .container {
             background-color: #ffffff;
             width: 100%;
-            max-width: 420px;
-            padding: 40px 30px;
-            border: 4px solid #34495e;
-        }
-
-        .auth-title {
-            text-align: center;
-            font-size: 24px;
-            font-weight: 700;
-            color: #2c3e50;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Flat Tab Menu */
-        .tab-menu {
+            max-width: 960px;
             display: flex;
-            margin-bottom: 25px;
-            border: 2px solid #bdc3c7;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
         }
 
-        .tab-btn {
+        /* Left Section: Form */
+        .form-container {
             flex: 1;
-            padding: 12px;
-            background-color: #ecf0f1;
-            border: none;
-            font-size: 14px;
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-logo {
+            font-size: 16px;
             font-weight: 700;
-            color: #7f8c8d;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: background-color 0.1s;
+            color: #111827;
+            margin-bottom: 28px;
         }
 
-        .tab-btn.active {
-            background-color: #3498db; /* Flat Blue */
-            color: #ffffff;
+        .icon-badge {
+            width: 42px;
+            height: 42px;
+            background-color: #7cb342;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
         }
 
-        /* Form Visibility */
-        .form-panel {
-            display: none;
+        .icon-badge svg {
+            width: 22px;
+            height: 22px;
+            fill: #ffffff;
         }
 
-        .form-panel.active {
-            display: block;
+        .heading {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 6px;
         }
 
-        /* Input Block */
+        .subheading {
+            text-align: center;
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .input-group label {
             display: block;
-            margin-bottom: 8px;
             font-size: 12px;
-            font-weight: 700;
-            color: #34495e;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 6px;
         }
 
         .input-group input {
             width: 100%;
-            padding: 12px 14px;
-            border: 2px solid #bdc3c7;
-            background-color: #fafafa;
-            font-size: 14px;
-            color: #2c3e50;
+            padding: 10px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #111827;
             outline: none;
+            transition: border-color 0.2s;
         }
 
         .input-group input:focus {
-            border-color: #3498db;
-            background-color: #ffffff;
+            border-color: #7cb342;
         }
 
-        /* Action Buttons */
-        .submit-btn {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            margin-top: 5px;
-        }
-
-        .login-btn {
-            background-color: #2ecc71; /* Flat Emerald Green */
-        }
-
-        .login-btn:hover {
-            background-color: #27ae60;
-        }
-
-        .signup-btn {
-            background-color: #e67e22; /* Flat Carrot Orange */
-        }
-
-        .signup-btn:hover {
-            background-color: #d35400;
-        }
-
-        /* Alert Box */
-        .status-message {
+        .actions-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
             margin-bottom: 20px;
-            padding: 10px;
+        }
+
+        .remember-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #374151;
+            cursor: pointer;
+        }
+
+        .forgot-link {
+            color: #111827;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 11px;
+            background-color: #262626;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
             font-size: 13px;
-            font-weight: 700;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #000000;
+        }
+
+        .divider-text {
             text-align: center;
-            display: none;
-            border: 2px solid #2ecc71;
-            background-color: #e8f8f5;
-            color: #27ae60;
+            font-size: 12px;
+            color: #9ca3af;
+            margin-bottom: 16px;
+        }
+
+        .btn-social {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e5e7eb;
+            background-color: #ffffff;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+            cursor: pointer;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-social:hover {
+            background-color: #f9fafb;
+        }
+
+        /* Right Section: Hero Showcase */
+        .hero-container {
+            flex: 1.1;
+            background-color: #689f38;
+            color: #ffffff;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-text-block {
+            max-width: 360px;
+        }
+
+        .hero-heading {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .hero-description {
+            font-size: 13px;
+            opacity: 0.9;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+        }
+
+        .dot.active {
+            background-color: #ffffff;
+            width: 18px;
+            border-radius: 4px;
+        }
+
+        /* Mock Dashboard UI Graphic */
+        .mock-dashboard {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            color: #111827;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            margin-top: 30px;
+            transform: rotate(-3deg) scale(1.02);
+            transform-origin: bottom right;
+        }
+
+        .mock-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #f3f4f6;
+            padding-bottom: 8px;
+        }
+
+        .mock-metrics {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .metric-card {
+            flex: 1;
+            background: #f9fafb;
+            padding: 8px 10px;
+            border-radius: 6px;
+        }
+
+        .metric-title {
+            font-size: 10px;
+            color: #6b7280;
+        }
+
+        .metric-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .mock-chart {
+            height: 45px;
+            background: linear-gradient(180deg, rgba(124, 179, 66, 0.2) 0%, rgba(124, 179, 66, 0) 100%);
+            border-bottom: 2px solid #7cb342;
+            border-radius: 4px;
         }
     </style>
 </head>
 <body>
 
-    <div class="auth-container">
-        <h2 class="auth-title">User Access</h2>
+    <div class="container">
+        <!-- Form Side -->
+        <div class="form-container">
+            <div class="brand-logo">Sentinel</div>
+            
+            <div class="icon-badge">
+                <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+            </div>
 
-        <!-- Navigation Tabs -->
-        <div class="tab-menu">
-            <button type="button" class="tab-btn active" id="loginTab" onclick="switchMode('login')">Log In</button>
-            <button type="button" class="tab-btn" id="signupTab" onclick="switchMode('signup')">Sign Up</button>
+            <h2 class="heading">Sign in to your account</h2>
+            <p class="subheading">Enter your email or connect your account to sign in.</p>
+
+            <form onsubmit="event.preventDefault(); alert('Signed in successfully!');">
+                <div class="input-group">
+                    <label for="userEmail">Email</label>
+                    <input type="email" id="userEmail" value="jayson_marhiela@gmail.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="userPassword">Password</label>
+                    <input type="password" id="userPassword" value="••••••••••••••••" required>
+                </div>
+
+                <div class="actions-row">
+                    <label class="remember-label">
+                        <input type="checkbox" checked> Remember me
+                    </label>
+                    <a href="#" class="forgot-link">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="btn-primary">Sign in &rarr;</button>
+
+                <div class="divider-text">or continue with</div>
+
+                <button type="button" class="btn-social">
+                    <svg width="14" height="14" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+                    Sign in with Google
+                </button>
+                <button type="button" class="btn-social">
+                    <svg width="14" height="14" fill="#1877F2" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    Sign in with Facebook
+                </button>
+            </form>
         </div>
 
-        <!-- Notification Box -->
-        <div id="statusMessage" class="status-message"></div>
+        <!-- Right Side: Green Showcase -->
+        <div class="hero-container">
+            <div class="hero-text-block">
+                <h2 class="hero-heading">Stay one step ahead of threats</h2>
+                <p class="hero-description">Monitor risks, investigate incidents and protect your infrastructure from a single security workspace.</p>
+                <div class="carousel-dots">
+                    <div class="dot active"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
 
-        <!-- Login Form -->
-        <form id="loginForm" class="form-panel active" onsubmit="handleSubmit(event, 'login')">
-            <div class="input-group">
-                <label for="loginEmail">Email Address</label>
-                <input type="email" id="loginEmail" placeholder="user@domain.com" required>
+            <!-- Dashboard Mockup Graphic -->
+            <div class="mock-dashboard">
+                <div class="mock-header">
+                    <span>Sentinel Security Center</span>
+                    <span style="color: #6b7280;">Overview</span>
+                </div>
+                <div class="mock-metrics">
+                    <div class="metric-card">
+                        <div class="metric-title">Active threats</div>
+                        <div class="metric-value">142</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-title">Open incidents</div>
+                        <div class="metric-value">18</div>
+                    </div>
+                </div>
+                <div class="mock-chart"></div>
             </div>
-            <div class="input-group">
-                <label for="loginPassword">Password</label>
-                <input type="password" id="loginPassword" placeholder="••••••••" required>
-            </div>
-            <button type="submit" class="submit-btn login-btn">Log In</button>
-        </form>
-
-        <!-- Sign Up Form -->
-        <form id="signupForm" class="form-panel" onsubmit="handleSubmit(event, 'signup')">
-            <div class="input-group">
-                <label for="signupUsername">Username</label>
-                <input type="text" id="signupUsername" placeholder="john_doe" required>
-            </div>
-            <div class="input-group">
-                <label for="signupEmail">Email Address</label>
-                <input type="email" id="signupEmail" placeholder="user@domain.com" required>
-            </div>
-            <div class="input-group">
-                <label for="signupPassword">Password</label>
-                <input type="password" id="signupPassword" minlength="6" placeholder="Min 6 characters" required>
-            </div>
-            <button type="submit" class="submit-btn signup-btn">Create Account</button>
-        </form>
+        </div>
     </div>
-
-    <script>
-        function switchMode(mode) {
-            const loginForm = document.getElementById('loginForm');
-            const signupForm = document.getElementById('signupForm');
-            const loginTab = document.getElementById('loginTab');
-            const signupTab = document.getElementById('signupTab');
-            const statusMsg = document.getElementById('statusMessage');
-
-            statusMsg.style.display = 'none';
-
-            if (mode === 'login') {
-                loginForm.classList.add('active');
-                signupForm.classList.remove('active');
-                loginTab.classList.add('active');
-                signupTab.classList.remove('active');
-            } else {
-                signupForm.classList.add('active');
-                loginForm.classList.remove('active');
-                signupTab.classList.add('active');
-                loginTab.classList.remove('active');
-            }
-        }
-
-        function handleSubmit(event, type) {
-            event.preventDefault();
-            const statusMsg = document.getElementById('statusMessage');
-            statusMsg.style.display = 'block';
-
-            if (type === 'login') {
-                const email = document.getElementById('loginEmail').value;
-                statusMsg.innerText = `Logged in successfully as ${email}`;
-            } else {
-                const username = document.getElementById('signupUsername').value;
-                statusMsg.innerText = `Account created for ${username}`;
-            }
-        }
-    </script>
 
 </body>
 </html>
