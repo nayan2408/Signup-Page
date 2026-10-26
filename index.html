@@ -3,338 +3,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashdark X - Complete Full Page Enterprise Platform</title>
+    <title>Enterprise Portal - Right Panel Only</title>
     <style>
-        /* Force screen containment - zero margins, no blank gaps, no double scrollbars */
+        /* Modern Flat Design Reset */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
         }
 
-        html, body {
+        body {
+            background-color: #f4f6fc; /* Color 1: Light Soft Gray */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Right Side Form Canvas Only */
+        .form-canvas {
             width: 100%;
-            height: 100vh;
-            background-color: #0b0f19;
-            color: #ffffff;
-            overflow: hidden; 
-        }
-
-        /* 3-Column Full Page Grid System spanning the absolute entire window */
-        .full-page-grid {
-            display: grid;
-            grid-template-columns: 260px 1fr 400px;
-            width: 100vw;
-            height: 100vh;
-        }
-
-        /* Common tile system styling to mimic dashboard data components */
-        .grid-tile {
-            background-color: #131a2e;
-            border: 1px solid #1e293b;
-            padding: 24px;
+            max-width: 440px;
+            background-color: #ffffff; /* Color 2: Crisp White */
+            padding: 50px 40px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             display: flex;
             flex-direction: column;
+            justify-content: center;
         }
 
-        /* COL 1: Structural Left Sidebar Panel */
-        .sidebar-panel {
-            grid-column: 1;
-            border-right: 1px solid #1e293b;
-            justify-content: flex-start;
-            gap: 8px;
-        }
-
-        .brand-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding-bottom: 24px;
-            border-bottom: 1px solid #1e293b;
-            margin-bottom: 16px;
-        }
-
-        .brand-dot {
-            width: 14px;
-            height: 14px;
-            background-color: #c084fc;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #c084fc;
-        }
-
-        .brand-txt {
-            font-size: 18px;
+        .form-header-title {
+            font-size: 22px;
             font-weight: 800;
-            letter-spacing: 0.5px;
-        }
-
-        .nav-item {
-            padding: 12px 16px;
-            color: #94a3b8;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .nav-item.active {
-            background-color: rgba(192, 132, 252, 0.1);
-            color: #c084fc;
-            border-left: 4px solid #c084fc;
-        }
-
-        /* COL 2: Central Analytics Monitor Space */
-        .analytics-space {
-            grid-column: 2;
-            display: grid;
-            grid-template-rows: 80px 1fr 1fr;
-            height: 100%;
-            background-color: #0b0f19;
-        }
-
-        .top-navbar {
-            grid-row: 1;
-            background-color: #131a2e;
-            border-bottom: 1px solid #1e293b;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 32px;
-        }
-
-        .navbar-title {
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        /* Sub-grid filling the top section of analytics window space */
-        .metrics-subgrid {
-            grid-row: 2;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            border-bottom: 1px solid #1e293b;
-        }
-
-        .metric-card {
-            border-right: 1px solid #1e293b;
-            padding: 32px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .metric-card:last-child {
-            border-right: none;
-        }
-
-        .metric-label {
-            font-size: 13px;
-            color: #64748b;
-            font-weight: 600;
+            color: #1e293b;
             text-transform: uppercase;
-            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+            margin-bottom: 24px;
+            text-align: center;
         }
 
-        .metric-val {
-            font-size: 28px;
-            font-weight: 700;
-        }
-
-        .metric-val.green { color: #2ecc71; }
-        .metric-val.red { color: #e74c3c; }
-
-        /* Chart Simulation Visualization box filling the bottom row space */
-        .visualization-box {
-            grid-row: 3;
-            padding: 32px;
+        /* Sub-Segmented Navigation Control Tabs */
+        .control-tabs {
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .chart-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 16px;
-        }
-
-        .mock-graph-container {
-            flex: 1;
-            border: 2px dashed #1e293b;
-            display: flex;
-            align-items: flex-end;
             gap: 8px;
-            padding: 16px;
-        }
-
-        .mock-bar {
-            flex: 1;
-            background-color: rgba(192, 132, 252, 0.2);
-            border-top: 3px solid #c084fc;
-            transition: height 0.5s;
-        }
-
-        /* COL 3: Structural Right Access & Authentication Panel */
-        .auth-panel {
-            grid-column: 3;
-            border-left: 1px solid #1e293b;
+            margin-bottom: 28px;
             justify-content: center;
-            align-items: center;
-            padding: 48px;
         }
 
-        .auth-wrapper {
-            width: 100%;
-        }
-
-        .tab-menu {
-            display: flex;
-            background-color: #0b0f19;
-            padding: 4px;
-            margin-bottom: 32px;
-            border: 1px solid #1e293b;
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 12px 0;
-            background: none;
-            border: none;
-            font-size: 14px;
+        .tab-trigger {
+            padding: 6px 16px;
+            background-color: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            font-size: 13px;
             font-weight: 700;
             color: #64748b;
             cursor: pointer;
         }
 
-        .tab-btn.active {
-            background-color: #131a2e;
-            color: #c084fc;
-            border: 1px solid #1e293b;
+        .tab-trigger.active {
+            background-color: #3b49df; /* Color 3: Royal Slate Blue */
+            color: #ffffff;
+            border-color: #3b49df;
         }
 
-        .form-view {
+        .panel-block {
             display: none;
         }
 
-        .form-view.visible {
+        .panel-block.visible {
             display: block;
         }
 
-        .input-block {
-            margin-bottom: 24px;
+        /* Input Element Rows with SVGs */
+        .field-row {
+            margin-bottom: 20px;
         }
 
-        .input-block label {
+        .field-row label {
             display: block;
-            margin-bottom: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            color: #94a3b8;
+            margin-bottom: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
         }
 
-        .input-block input {
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper svg {
+            position: absolute;
+            left: 14px;
+            width: 16px;
+            height: 16px;
+            fill: #64748b;
+        }
+
+        .input-wrapper input {
             width: 100%;
-            padding: 14px;
-            border: 1px solid #1e293b;
-            background-color: #0b0f19;
-            font-size: 15px;
-            color: #ffffff;
+            padding: 12px 12px 12px 42px;
+            border: 1px solid #cbd5e1; /* Color 4: Input Boundary Gray */
+            background-color: #ffffff;
+            font-size: 14px;
+            color: #1e293b;
             outline: none;
         }
 
-        .input-block input:focus {
-            border-color: #c084fc;
+        .input-wrapper input:focus {
+            border-color: #3b49df;
         }
 
-        .action-submit {
+        /* Action Controls */
+        .auth-submit-btn {
             width: 100%;
-            padding: 14px;
-            border: none;
-            background-color: #d946ef;
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            letter-spacing: 0.5px;
-        }
-
-        .action-submit:hover {
-            background-color: #c026d3;
-            box-shadow: 0 0 15px rgba(217, 70, 239, 0.4);
-        }
-
-        .sys-alert {
-            margin-bottom: 24px;
             padding: 12px;
+            background-color: #3b49df;
+            border: none;
+            color: #ffffff;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .auth-submit-btn:hover {
+            background-color: #2633c2;
+        }
+
+        .status-message {
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 13px;
+            font-weight: 700;
             text-align: center;
             display: none;
-            background-color: rgba(192, 132, 252, 0.1);
-            border: 1px solid #c084fc;
-            color: #c084fc;
+            background-color: #e0e7ff;
+            border: 1px solid #a5b4fc;
+            color: #3b49df;
         }
     </style>
 </head>
 <body>
 
-    <!-- Main Fullscreen Screen Layout Grid Frame -->
-    <div class="full-page-grid">
-        
-        <!-- COL 1: Sidebar System Navigation Panel -->
-        <div class="grid-tile sidebar-panel">
-            <div class="brand-container">
-                <div class="brand-dot"></div>
-                <div class="brand-txt">Dashdark X</div>
-            </div>
-            <div class="nav-item active">Dashboard</div>
-            <div class="nav-item">Reports Overview</div>
-            <div class="nav-item">Product Metrics</div>
-            <div class="nav-item">Task Control</div>
-            <div class="nav-item">Features Config</div>
-            <div class="nav-item">User Management</div>
-            <div class="nav-item">System Pricing</div>
+    <!-- RIGHT SIDE: Input Form Canvas -->
+    <div class="form-canvas">
+        <h1 class="form-header-title">Form Login</h1>
+
+        <!-- Segment Control Tabs -->
+        <div class="control-tabs">
+            <button class="tab-trigger active" id="loginTab" onclick="toggleInterface('login')">Login</button>
+            <button class="tab-trigger" id="signupTab" onclick="toggleInterface('signup')">Register</button>
         </div>
 
-        <!-- COL 2: Analytics & Performance Workspace Data Stream -->
-        <div class="analytics-space">
-            <!-- Central Top Navbar -->
-            <div class="top-navbar">
-                <div class="navbar-title">Welcome back, John</div>
-                <div style="font-size: 14px; color: #64748b;">System Node Active</div>
-            </div>
+        <div id="statusMessage" class="status-message"></div>
 
-            <!-- Horizontal Metrics Block (4 Grid Sub-Columns Edge-To-Edge) -->
-            <div class="metrics-subgrid">
-                <div class="metric-card">
-                    <div class="metric-label">Page views</div>
-                    <div class="metric-val green">50.8K</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Monthly users</div>
-                    <div class="metric-val red">23.6K</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">New sign ups</div>
-                    <div class="metric-val">756</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Subscriptions</div>
-                    <div class="metric-val">2.3K</div>
+        <!-- Login View Block -->
+        <form id="loginBlock" class="panel-block visible" onsubmit="handleAuthAction(event, 'login')">
+            <div class="field-row">
+                <label for="loginUser">User Name</label>
+                <div class="input-wrapper">
+                    <!-- User Silhouette SVG -->
+                    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    <input type="text" id="loginUser" required placeholder="Username">
                 </div>
             </div>
-
-            <!-- Visualization System Grid Block -->
-            <div class="grid-tile visualization-box">
-                <div class="chart-header">
-                    <div>
-                        <div style="font-size: 14px; color: #64748b; font-weight: 600;">TOTAL REVENUE</div>
-                        <div style="font-size: 24px; font-weight: 700; color: #2ecc71;">$240.8K</div>
-                    </div>
-                    <div style="font-size: 13px; color: #64748b; align-self: flex-end;">Jan 2026 - Dec 2026</div>
+            <div class="field-row">
+                <label for="loginPass">Password</label>
+                <div class="input-wrapper">
+                    <!-- Shield Lock SVG -->
+                    <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                    <input type="password" id="loginPass" required placeholder="Password">
                 </div>
-                <!-- Simulated Chart Bars -->
-                <div class="mock-graph-container">
-                    <div class="mock-bar" style="height: 30%;"></div>
-                    <div class="mock-bar" style="height: 45%;"></div>
+            </div>
+            <button type="submit" class="auth-submit-btn">Login</button>
+        </form>
+
+        <!-- Register View Block -->
+        <form id="signupBlock" class="panel-block" onsubmit="handleAuthAction(event, 'signup')">
+            <div class="field-row">
+                <label for="regUser">User Name</label>
+                <div class="input-wrapper">
+                    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    <input type="text" id="regUser" required placeholder="Create Username">
+                </div>
+            </div>
+            <div class="field-row">
+                <label for="regEmail">Email Address</label>
+                <div class="input-wrapper">
+                    <!-- Envelope Mail SVG -->
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    <input type="email" id="regEmail" required placeholder="Email Address">
+                </div>
+            </div>
+            <div class="field-row">
+                <label for="regPass">Password</label>
+                <div class="input-wrapper">
+                    <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                    <input type="password" id="regPass" required minlength="6" placeholder="Password">
+                </div>
+            </div>
+            <button type="submit" class="auth-submit-btn">Register</button>
+        </form>
+
+    </div>
+
+    <script>
+        function toggleInterface(targetMode) {
+            const loginBlock = document.getElementById('loginBlock');
+            const signupBlock = document.getElementById('signupBlock');
+            const loginTab = document.getElementById('loginTab');
+            const signupTab = document.getElementById('signupTab');
+            const alertText = document.getElementById('statusMessage');
+
+            alertText.style.display = 'none';
+
+            if (targetMode === 'login') {
+                loginBlock.classList.add('visible');
+                signupBlock.classList.remove('visible');
+                loginTab.classList.add('active');
+                signupTab.classList.remove('active');
+            } else {
+                loginBlock.classList.remove('visible');
+                signupBlock.classList.add('visible');
+                loginTab.classList.remove('active');
+                signupTab.classList.add('active');
+            }
+        }
+
+        function handleAuthAction(event, flow) {
+            event.preventDefault();
+            const alertText = document.getElementById('statusMessage');
+            alertText.style.display = 'block';
+            
+            if (flow === 'login') {
+                const user = document.getElementById('loginUser').value;
+                alertText.innerText = `Welcome back! Logged in as: ${user}`;
+            } else {
+                const newUser = document.getElementById('regUser').value;
+                alertText.innerText = `Success! Registered account: ${newUser}`;
+            }
+        }
+    </script>
+</body>
+</html>
